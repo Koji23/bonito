@@ -42,3 +42,17 @@ services:
     ports:
       - "8080:80"
     build: ./frontend
+  backend_dev:
+      stdin_open: true
+      ports:
+        - "3001:3000"
+      build: 
+        context: ./backend
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /usr/app/node_modules
+        - ./backend:/usr/app
+  backend_prod:
+      ports:
+        - "8081:3000"
+      build: ./backend

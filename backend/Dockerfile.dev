@@ -1,0 +1,13 @@
+FROM node:alpine
+
+WORKDIR /usr/app
+
+# Minmize cache busting and unnecessary rebuilds
+COPY ./package.json ./
+RUN npm install
+
+# Copy over rest of the app
+COPY ./ ./
+
+# Default Command for nest.js dev mode
+CMD ["npm", "run", "start:dev"]

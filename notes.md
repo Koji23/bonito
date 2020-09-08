@@ -13,6 +13,10 @@ docker-compose up --build
 
 backend
 npx -p @nestjs/cli nest new backend
+rm -rf .git
+rm -rf node_modules
 
 frontend
 npx create-react-app frontend
+rm -rf .git
+rm -rf node_modules
