@@ -1,0 +1,19 @@
+FROM node:alpine
+# on linux operating systems /usr is a good place to put user directories
+# (var or home may be other decent options). We want to put our app in /usr/app
+# so that our app doesn't overwrite anything in the linux root directory
+WORKDIR '/usr/app'
+# We want to isolate the copying of package.json away from the copying of
+# any other files in our project. This is because we will likely make changes to
+# files more frequently than we make changes to our dependencies and npm install
+# takes a while. By separating the COPY commands we can make non-dependency related
+# changes to the app and quickly save the new image. Docker will then reach into its
+# cache and will start creating the new image based off of the cached temporary
+# image that left off on 'RUN npm install'
+COPY ./package.json ./
+RUN npm install
+# docker-compose volumes sort of make the below line unnecesary
+# We'll leave it here anyway though just so that this Dockerfile would
+# still be useful if the separate odcker-compose.yml file didn't exist
+COPY . .
+CMD ["npm", "run", "start"]
