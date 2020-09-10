@@ -1,3 +1,10 @@
+
+<!-- ESlint Typescript-->
+Open VScode inside ./backend or other subfolder in order to avoid errors 
+such as "Parsing Error: cannot read file .../tsconfig.json when viewing 
+typescript files inside VSCode
+
+<!-- Docker Compose -->
 docker-compose up
 
 docker-compose down
