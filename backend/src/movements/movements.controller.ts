@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { create } from 'domain';
 
 @Controller('movements')
 export class MovementsController {
@@ -15,5 +16,10 @@ export class MovementsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return `this route returns ${id} movement`;
+  }
+
+  @Post()
+  create(@Body() body: any){
+    return body;
   }
 }
