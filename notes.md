@@ -5,7 +5,8 @@ docker-compose down
 <!-- If a new service was added to docker-compose add the --build flag -->
 docker-compose up --build
 
-
+<!-- remember these commands need to be run from the same directory as the yml file -->
+docker-compose ps
 
 
 
