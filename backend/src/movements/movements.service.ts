@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { Movement } from './entities/movement.entity';
 
 // Services are for separating business logic out of the controller.
@@ -23,7 +23,15 @@ export class MovementsService {
   }
 
   findOne(id: string) {
-    return this.movements.find(item => item.id === +id);
+    const movement = this.movements.find(item => item.id === +id);
+      if (!movement) {
+      // throw new HttpException(`Movement #${id} Not Found`, HttpStatus.NOT_FOUND)
+      // Nest supplies helper methods for all of the common error messages
+      // Note: nest will also has an exceptions layer that will handle non-http exceptions
+      // such as regular javascript errors with things such as a 500 error
+      throw new NotFoundException(`Movement #${id} Not Found`);
+    }
+    return movement;
   }
 
   create(createCoffeeDto: any) {
@@ -32,9 +40,9 @@ export class MovementsService {
 
   update(id: string, updateCoffeeDto: any) {
     const existingCoffee = this.findOne(id);
-    if (existingCoffee) {
-      // update the existing entity
-    }
+    // if (existingCoffee) {
+    //   // update the existing entity
+    // }
   }
 
   remove(id: string) {
