@@ -10,9 +10,14 @@ npx -p @nestjs/cli nest g co CONTROLLER_NAME  <!-- shorthand -->
 npx -p @nestjs/cli nest g co modules/CONTROLLER_NAME <!-- put the controller in the modules folder.  -->
 npx -p @nestjs/cli nest g co modules/CONTROLLER_NAME --dry-run <!-- dry run will simulate the output of the command without actually creating anything -->
 
-
+<!-- Service -->
 npx -p @nestjs/cli nest generate service
 npx -p @nestjs/cli nest g s
 
+<!-- Module -->
 npx -p @nestjs/cli nest generate module
 npx -p @nestjs/cli nest g module MODULE_NAME
+
+<!-- DTO -->
+npx -p @nestjs/cli nest g class movements/dto/create-movements.dto --no-spec
+

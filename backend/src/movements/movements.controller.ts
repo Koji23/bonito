@@ -1,6 +1,8 @@
 import { Controller, Get, Param, Post, Body, HttpCode, HttpStatus, Res, Patch, Delete, Query } from '@nestjs/common';
 import { create } from 'domain';
 import { MovementsService } from './movements.service';
+import { CreateMovementsDto } from './dto/create-movements.dto';
+import { UpdateMovementsDto } from './dto/update-movements.dto';
 
 @Controller('movements')
 export class MovementsController {
@@ -29,13 +31,13 @@ export class MovementsController {
   }
 
   @Post()
-  create(@Body() body: any){
-    return this.movementsService.create(body);
+  create(@Body() createMovementsDto: CreateMovementsDto){
+    return this.movementsService.create(createMovementsDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: 'string', @Body() body) {
-    return this.movementsService.update(id, body);
+  update(@Param('id') id: 'string', @Body() updateMovementsDto: UpdateMovementsDto) {
+    return this.movementsService.update(id, updateMovementsDto);
   }
 
   @Delete(':id')
