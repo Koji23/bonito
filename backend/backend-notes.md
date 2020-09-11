@@ -13,3 +13,6 @@ npx -p @nestjs/cli nest g co modules/CONTROLLER_NAME --dry-run <!-- dry run will
 
 npx -p @nestjs/cli nest generate service
 npx -p @nestjs/cli nest g s
+
+npx -p @nestjs/cli nest generate module
+npx -p @nestjs/cli nest g module MODULE_NAME
