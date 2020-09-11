@@ -11,4 +11,5 @@ npx -p @nestjs/cli nest g co modules/CONTROLLER_NAME <!-- put the controller in 
 npx -p @nestjs/cli nest g co modules/CONTROLLER_NAME --dry-run <!-- dry run will simulate the output of the command without actually creating anything -->
 
 
-
+npx -p @nestjs/cli nest generate service
+npx -p @nestjs/cli nest g s
