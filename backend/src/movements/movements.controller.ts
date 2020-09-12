@@ -26,12 +26,16 @@ export class MovementsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.movementsService.findOne(id);
+  findOne(@Param('id') id: number) {
+    // Since 'id' is a URL param it is a string by default. But by specifying a number type here, Nest's ValidationPipe will
+    // transform the type to number
+    return this.movementsService.findOne('' + id);
   }
 
   @Post()
   create(@Body() createMovementsDto: CreateMovementsDto){
+    // createMovementsDto is and actual instance of CreateMovementsDto here due to the global ValidationPipe's transform property.
+    // note: This transform feature may have a slight impact performance, test to be sure it is negligible
     return this.movementsService.create(createMovementsDto);
   }
 
