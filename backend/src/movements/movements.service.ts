@@ -35,7 +35,8 @@ export class MovementsService {
   }
 
   create(createCoffeeDto: any) {
-    return this.movements.push(createCoffeeDto);
+    this.movements.push(createCoffeeDto);
+    return createCoffeeDto;
   }
 
   update(id: string, updateCoffeeDto: any) {
