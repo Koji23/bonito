@@ -28,6 +28,7 @@ docker run -it CONTAINER_ID sh
 <!-- build the container, don't forget the '.' or build context. The build context is the set of files and folders that belong to the project -->
 <!-- tagging conventions => DOCKER_ID/PROJECT_NAME:VERSION -->
 <!-- when running an image by its tag, the version can be ommitted and "latest" will be assumed -->
+<!-- Note: Building images can be slow if node_modules exist locally since it will be included when sending the build context to the Docker Daemon. You may want to delete node_modules before doing this. However you may also want to keep node_modules around so your editor will be able to autosuggest exports from npm packages. Your call... -->
 docker build -f Dockerfile.dev -t koji23/frontend:latest .
 
 <!-- manually run container with port mapping local port:container port -->

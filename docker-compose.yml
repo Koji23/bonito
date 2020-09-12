@@ -29,7 +29,7 @@ services:
     # into the docker-compose logs. This testing workflow can be replaced by:
       # docker exec -it CONTAINER_ID npm run test
     # if desired.
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile.dev
     volumes:
