@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 const redis = require("redis");
 
 const client = redis.createClient({
-  host: "redis-server",
+  host: "redis-server", // perhaps change this to an environment variable
   port: 6379
 });
 client.set("visits", 0);

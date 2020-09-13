@@ -28,3 +28,21 @@ frontend
 npx create-react-app frontend
 rm -rf .git
 rm -rf node_modules
+
+<!-- Installing Service Dependencies with NPM -->
+1.) docker-compose down
+2.) cd DIRECTORY_OF_NODE_SERVICE
+3.) npm install --save DESIRED_PACKAGES && rm -rf node_modules && rm package-lock.json
+or just edit package.json directly
+4.) cd ..
+5.) docker-compose build && docker-conmpose up
+
+<!-- Exec into Postgres -->
+docker exec -it bonito_postgres-db_1 psql -U postgres -W
+- list databases
+  - \l
+- connect to database
+  \c 
+- list databases
+  - \dt
+- SELECT * FROM movement;

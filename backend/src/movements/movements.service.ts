@@ -1,5 +1,10 @@
 import { Injectable, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateMovementsDto } from './dto/create-movements.dto';
+import { UpdateMovementsDto } from './dto/update-movements.dto';
 import { Movement } from './entities/movement.entity';
+import { MovementsController } from './movements.controller';
 
 // Services are for separating business logic out of the controller.
 // Thus making them reusable throughout the application
@@ -8,23 +13,18 @@ import { Movement } from './entities/movement.entity';
 // use in the MovementsController but really anywhwere that might benefit
 @Injectable()
 export class MovementsService {
-  private movements: Movement[] = [
-    {
-      id: 0,
-      name: 'bench press',
-      muscles: ['chest', 'triceps'],
-      difficulty: 5,
-      equipment: ['bench', 'barbell', 'rack'],
-    }
-  ];
+  constructor(
+    @InjectRepository(Movement)
+    private readonly movementRepository: Repository<Movement>,
+  ){}
 
   findAll() {
-    return this.movements;
+    return this.movementRepository.find();
   }
 
-  findOne(id: string) {
-    const movement = this.movements.find(item => item.id === +id);
-      if (!movement) {
+  async findOne(id: number) {
+    const movement = await this.movementRepository.findOne(id);
+    if (!movement) {
       // throw new HttpException(`Movement #${id} Not Found`, HttpStatus.NOT_FOUND)
       // Nest supplies helper methods for all of the common error messages
       // Note: nest will also has an exceptions layer that will handle non-http exceptions
@@ -34,22 +34,26 @@ export class MovementsService {
     return movement;
   }
 
-  create(createCoffeeDto: any) {
-    this.movements.push(createCoffeeDto);
-    return createCoffeeDto;
+  create(createMovementDto: CreateMovementsDto) {
+    const movement = this.movementRepository.create(createMovementDto)
+    return this.movementRepository.save(movement);
   }
 
-  update(id: string, updateCoffeeDto: any) {
-    const existingCoffee = this.findOne(id);
-    // if (existingCoffee) {
-    //   // update the existing entity
-    // }
-  }
+  async update(id: number, updateCoffeeDto: UpdateMovementsDto) {
+    const movement = await this.movementRepository.preload({
+      id,
+      ...updateCoffeeDto,
+    });
 
-  remove(id: string) {
-    const movementsIndex = this.movements.findIndex(item => item.id === +id);
-    if (movementsIndex >= 0) {
-      this.movements.splice(movementsIndex, 1);
+    if (!movement) {
+      throw new NotFoundException(`Movement #${id} Not Found`);
     }
+
+    return this.movementRepository.save(movement);
+  }
+
+  async remove(id: number) {
+    const movement = await this.movementRepository.findOne(id);
+    return this.movementRepository.remove(movement)
   }
 }

@@ -60,3 +60,11 @@ services:
     restart: always
   redis-server:
     image: "redis"
+  postgres-db:
+    image: "postgres"
+    restart: "always"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: bonito
+      POSTGRES_PASSWORD: abc123

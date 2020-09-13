@@ -29,7 +29,7 @@ export class MovementsController {
   findOne(@Param('id') id: number) {
     // Since 'id' is a URL param it is a string by default. But by specifying a number type here, Nest's ValidationPipe will
     // transform the type to number
-    return this.movementsService.findOne('' + id);
+    return this.movementsService.findOne(id);
   }
 
   @Post()
@@ -40,12 +40,12 @@ export class MovementsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: 'string', @Body() updateMovementsDto: UpdateMovementsDto) {
+  update(@Param('id') id: number, @Body() updateMovementsDto: UpdateMovementsDto) {
     return this.movementsService.update(id, updateMovementsDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: 'string', @Body() body) {
+  remove(@Param('id') id: number, @Body() body) {
     return this.movementsService.remove(id);
   }
 }
