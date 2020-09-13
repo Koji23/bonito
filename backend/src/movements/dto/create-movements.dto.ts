@@ -19,3 +19,6 @@ export class CreateMovementsDto {
   @IsString({ each: true })
   readonly equipment: string[];
 }
+
+
+// TODO: rename this file to not be plural

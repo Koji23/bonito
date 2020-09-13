@@ -21,3 +21,5 @@ npx -p @nestjs/cli nest g module MODULE_NAME
 <!-- DTO -->
 npx -p @nestjs/cli nest g class movements/dto/create-movements.dto --no-spec
 
+<!-- Entities -->
+npx -p @nestjs/cli nest g class movements/entities/equipment.entity --no-spec

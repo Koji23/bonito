@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Equipment } from './entities/equipment.entity';
 import { Movement } from './entities/movement.entity';
 import { MovementsController } from './movements.controller';
 import { MovementsService } from './movements.service';
@@ -10,7 +11,7 @@ import { MovementsService } from './movements.service';
 // imports - Just as we saw in the AppModule, the imports Array gives us the ability to list OTHER modules that THIS module requires. Any exported providers of these imported modules are now fully available here as well.
 // providers - Here we’re going to list our services that need to be instantiated by the Nest injector.  Any providers here will be available only within “THIS” module itself, unless added to the exports array we saw above.
 @Module({
-  imports: [ TypeOrmModule.forFeature([Movement]) ], // Since MovementsModule is a child module, we use forFeature tp register typeorm rather than forRoot
+  imports: [ TypeOrmModule.forFeature([Movement, Equipment]) ], // Since MovementsModule is a child module, we use forFeature tp register typeorm rather than forRoot
   controllers: [ MovementsController ],
   providers: [ MovementsService ],
 })
