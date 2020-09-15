@@ -3,6 +3,7 @@ import { create } from 'domain';
 import { MovementsService } from './movements.service';
 import { CreateMovementsDto } from './dto/create-movements.dto';
 import { UpdateMovementsDto } from './dto/update-movements.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('movements')
 export class MovementsController {
@@ -20,9 +21,9 @@ export class MovementsController {
   constructor(private readonly movementsService: MovementsService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery; // try visit: localhost:3001/movements?limit=20&offset=10
-    return this.movementsService.findAll();
+    return this.movementsService.findAll(paginationQuery);
   }
 
   @Get(':id')

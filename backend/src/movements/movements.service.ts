@@ -6,6 +6,7 @@ import { UpdateMovementsDto } from './dto/update-movements.dto';
 import { Equipment } from './entities/equipment.entity';
 import { Movement } from './entities/movement.entity';
 import { MovementsController } from './movements.controller';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 // Services are for separating business logic out of the controller.
 // Thus making them reusable throughout the application
@@ -21,9 +22,12 @@ export class MovementsService {
     private readonly equipmentRepository: Repository<Equipment>,
   ){}
 
-  findAll() {
+  findAll(paginationQueryDto: PaginationQueryDto) {
+    const { limit, offset } = paginationQueryDto;
     return this.movementRepository.find({
       relations: ['equipment'], // by default TypeORM will simply omit any relations unless we specify otherwise
+      skip: offset,
+      take: limit,
     });
   }
 
