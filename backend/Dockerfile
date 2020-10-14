@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # install only devDependencies due to the container being used as a “builder” 
-RUN npm install --only=development
+RUN npm install
 
 COPY . .
 
