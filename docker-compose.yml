@@ -1,51 +1,9 @@
 version: '3.8'
 services:
-  frontend_dev:
-    # 4-1-2020. Must add "stdin_open" property to docker-compose.yml file.
-    # Recently, a bug was introduced with the latest Create React App version
-    # that is causing the React app to exit when starting with Docker Compose.
-    # Make sure you rebuild your containers after making this change with  docker-compose down && docker-compose up --build
-    # https://github.com/facebook/create-react-app/issues/8688
-    # https://stackoverflow.com/questions/60790696/react-scripts-start-exiting-in-docker-foreground-cmd
-    stdin_open: true
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    ports:
-      # CRA's dev server provides the react app on 3000 by default
-      # So we'll map 3000 on the local port to 3000 in the container
-      - "3000:3000"
-    volumes:
-      # this means do not try to map a local file system folder up against the node_modules
-      # folder inside the container. The local fs node_modules may be deleted to avoid
-      # duplicating the dependencies but we also don't want the conatiner's node_modules
-      # folder to be mapped against potentially nothing
-      - /usr/app/node_modules
-      # we do however want to map the current working directory "." to the "/usr/app" directory
-      # in the container
-      - ./frontend:/usr/app
-  frontend_tests:
-    # This optional service will allow for frontend tests to automatically run and output
-    # into the docker-compose logs. This testing workflow can be replaced by:
-      # docker exec -it CONTAINER_ID npm run test
-    # if desired.
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /usr/app/node_modules
-      - ./frontend:/usr/app
-    command: ["npm", "run", "test"] # this will override the primary command in Dockerfile.dev
-  frontend_prod:
-    # This optional service can be replaced by:
-      # docker run -p 8080:80 IMAGE_ID
-    ports:
-      - "8080:80"
-    build: ./frontend
   backend_dev:
     stdin_open: true
     ports:
-      - "3001:3000"
+      - "3006:3000"
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
@@ -53,18 +11,10 @@ services:
       - /usr/app/node_modules
       - ./backend:/usr/app
     restart: on-failure
-  backend_prod:
-    ports:
-      - "8081:3000"
-    build: ./backend
-    restart: always
-  redis-server:
-    image: "redis"
   postgres-db:
     image: "postgres"
     restart: "always"
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
-      POSTGRES_DB: bonito
       POSTGRES_PASSWORD: abc123

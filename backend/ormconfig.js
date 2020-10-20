@@ -1,10 +1,10 @@
 module.exports = {
   type: 'postgres',
-  host: 'postgres-db',
-  port: 5432,
+  host: 'localhost',
+  port: 5433,
   username: 'postgres',
   password: 'abc123',
-  database: 'bonito',
+  database: 'postgres',
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/migrations/*.js'],
   cli: {

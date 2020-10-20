@@ -13,7 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 5432, // database port
       username: 'postgres', // username
       password: 'abc123', // user password, *see docker-compose.yml
-      database: 'bonito', // name of our database, *see docker-compose.yml
+      database: 'postgres', // name of our database, *see docker-compose.yml
       autoLoadEntities: true, // models will be loaded automatically (you don't have to explicitly specify the entities: [] array)
       synchronize: true, // your entities will be synced with the database (ORM will map entity definitions to corresponding SQL tabled), every time you run the application (TODO: disable in the production). This means nest will automatically generate a SQL table for all classes with the @Entity decorator
     }),
