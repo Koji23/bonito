@@ -26,3 +26,25 @@ npx -p @nestjs/cli nest g class common/dto/pagination-query.dto --no-spec
 <!-- Entities -->
 npx -p @nestjs/cli nest g class movements/entities/equipment.entity --no-spec
 
+<!-- Writing Migrations -->
+npx typeorm migration:create -n MovementRefactor
+
+<!-- Running Migrations
+Remember 💡 You must BUILD your Nest project (so that everything is output to the `/dist/` folder, before a Migration can run, it needs compilated files. -->
+
+  <!-- Step 1: Compile project first  -->
+  npm run build
+
+  <!-- Step 2: Exec into backend container  -->
+  docker exec -it bonito_backend_dev_1 sh
+
+  <!-- Step 3: Run migration(s)  -->
+  npx typeorm migration:run
+
+  <!-- REVERT migration(s) -->
+  npx typeorm migration:revert
+
+  <!-- Let TypeOrm generate migrations (for you) -->
+  <!-- Step 1: Edit and entity file -->
+  <!-- Step 2: -->
+    npx typeorm migration:generate -n SchemaSync

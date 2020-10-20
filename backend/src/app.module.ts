@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'postgres', // type of our database
       host: 'postgres-db', // database host. ie: localhost. But here Docker-compose will sub in the service name of our postgres database. TODO: change this to env variable
-      port: 5432, // database host
+      port: 5432, // database port
       username: 'postgres', // username
       password: 'abc123', // user password, *see docker-compose.yml
       database: 'bonito', // name of our database, *see docker-compose.yml

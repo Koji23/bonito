@@ -42,7 +42,7 @@ docker exec -it bonito_postgres-db_1 psql -U postgres -W
 - list databases
   - \l
 - connect to database
-  \c 
+  \c bonito
 - list databases
   - \dt
 - SELECT * FROM movement;
